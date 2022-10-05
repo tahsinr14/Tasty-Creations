@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import GoogleLogin from "react-google-login";
 import {gapi} from "gapi-script";
-import "./loginForm.css"
+import "./loginForm.css";
+import { Link } from 'react-router-dom';
+
+
+
 
 const LoginForm = () => {
     
@@ -52,6 +56,9 @@ const LoginForm = () => {
                         theme='dark'
                     />
                 </div>
+            </div>
+            <div>
+                <a href='/register'>Don't have an account?</a>
             </div>
             <div className={popupStyle}>
                 <h3>Login Failed</h3>
