@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./editStyle.css";
-import UserProfilePhoto from "./profilePhoto";
+import UserProfilePhoto from "./profilePhoto/profilePhoto";
 
 const AccountEdit = () => {
   const navigate = useNavigate();

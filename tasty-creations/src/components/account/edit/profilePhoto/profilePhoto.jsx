@@ -1,7 +1,7 @@
 import "./profilePhoto.css";
 
 
-const UserProfilePhoto = ()=>{
+const UserProfilePhoto = () => {
 
     return (
         <>
