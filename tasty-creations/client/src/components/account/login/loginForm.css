@@ -13,7 +13,7 @@
   font-size: 1em;
 }
 
-.register {
+.login {
   background-color: white;
   width: 40em;
   height: 40em;
@@ -26,14 +26,14 @@
   justify-content: space-around;
 }
 
-.alter-register {
+.alter-login {
   width: 80%;
   height: 3em;
   display: flex;
   justify-content: space-around;
 }
 
-.alter-register div {
+.alter-login div {
   width: 45%;
   height: 90%;
   border-radius: 0.25em;
@@ -45,7 +45,7 @@
 }
 
 .google {
-  background-image: url(../components/account/icons/google.png);
+  background-image: url(../icons/google.png);
   /* transition: 0.5s; */
 }
 
@@ -68,8 +68,8 @@ input:focus {
   /*rgb(32, 177, 255)*/
 }
 
-.register-button {
-  background-color: red;
+.login-button {
+  background-color: red !important;
   width: 40%;
   height: 3em;
   display: flex;
@@ -80,12 +80,13 @@ input:focus {
   cursor: pointer;
 }
 
-.register-button:hover {
+.login-button:hover {
   transform: scale(1.2);
 }
 
 .text {
   position: relative;
+  bottom: -2em;
 }
 
 .hide {
@@ -93,7 +94,7 @@ input:focus {
   transform: scale(0); /* prevent popup from showing */
 }
 
-.register-popup {
+.login-popup {
   position: absolute;
   height: 10em;
   width: 15em;
@@ -109,10 +110,14 @@ input:focus {
   transition: 1.5s;
 }
 
-.google-register {
+.google-login {
   width: 50em;
   height: 5em;
   background-position: center;
   background-size: contain;
-  background-image: url(../components/account/icons/google.png);
+  background-image: url(../icons/google.png);
+}
+
+.message {
+  text-align: center;
 }
