@@ -8,7 +8,7 @@ const navBar = () => {
         Tasty Creations
       </div>
       <ul>
-        <li>Home</li>
+      <li><a href="/">Home</a></li>
         <li>External Source</li>
         <li>About</li>
         <li>Contact Us</li>
