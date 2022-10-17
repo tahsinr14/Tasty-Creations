@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./editStyle.css";
 import UserProfilePhoto from "./profilePhoto/profilePhoto";
 
 const AccountEdit = () => {
   const navigate = useNavigate();
   const [fields, setFields] = useState({
-    fullname: "",
+    fullName: "",
     email: "",
     gender: "",
     password: "",
@@ -17,10 +18,17 @@ const AccountEdit = () => {
       ...fields,
       [field]: event.target.value,
     }));
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (fields.password !== fields.confirmPassword)
+      return alert("Password mismatch");
+    const id = localStorage.getItem("user_id");
+    await axios.put(
+      `${process.env.REACT_APP_API_HOST}/account/edit/${id}`,
+      fields
+    );
     alert("Account updated successfully!");
-    navigate("/details");
+    navigate(`/account`);
   };
   const handleFormReset = () =>
     setFields((fields) => ({
@@ -48,12 +56,12 @@ const AccountEdit = () => {
         >
           <fieldset className="form-group">
             <div className="input-group">
-              <label htmlFor="fullname">Full Name</label>
+              <label htmlFor="fullName">Full Name</label>
               <input
                 type="text"
-                id="fullname"
-                value={fields.fullname}
-                onChange={(event) => handleFieldChange(event, "fullname")}
+                id="fullName"
+                value={fields.fullName}
+                onChange={(event) => handleFieldChange(event, "fullName")}
                 required
               />
             </div>
@@ -68,7 +76,7 @@ const AccountEdit = () => {
               />
             </div>
             <div className="input-group">
-              <label htmlFor="text">Gender</label>
+              <label htmlFor="text">gender</label>
               <input
                 type="text"
                 id="gender"
