@@ -9,6 +9,7 @@ import axios from "axios";
 const LoginForm = ({ error }) => {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [err, setErr] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,10 +47,14 @@ const LoginForm = ({ error }) => {
         }
       )
       .then(function (response) {
-        console.log(response.data);
+        console.log("Res: ", response.data);
       })
       .catch(function (error) {
         console.log(error.response.data.errors);
+        setErr(() => error.response.data.errors);
+        setTimeout(() => {
+          setErr(() => []);
+        }, 3000);
       });
   };
 
@@ -69,10 +74,18 @@ const LoginForm = ({ error }) => {
       <form onSubmit={submitHandler} method="POST">
         <div className="login">
           <h1>Login</h1>
-          {error !== "" ? <div className="error">{error}</div> : ""}
+          <div>
+            {err.length > 0 &&
+              err.map((er) => (
+                <div key={er} style={{ color: "red" }}>
+                  {er?.msg} for {er?.param}
+                </div>
+              ))}
+          </div>
           <input
             className="loginInput"
-            type="text"
+            type="email"
+            required
             placeholder="Enter username"
             name="username"
             id="username"
@@ -85,6 +98,8 @@ const LoginForm = ({ error }) => {
             placeholder="Enter password"
             name="password"
             id="password"
+            maxLength="12"
+            minlength="8"
             onChange={(e) => setUserPassword(e.target.value)}
             // value={details.password}
           />
