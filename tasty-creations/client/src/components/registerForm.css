@@ -56,11 +56,11 @@
 input {
   border: none;
   background-color: rgb(229, 226, 226);
-  height: 4em;
+  height: 3.5em;
   width: 80%;
   border-radius: 0.25em;
   text-align: center;
-  padding: 2em;
+  padding: 1.5em;
 }
 
 input:focus {

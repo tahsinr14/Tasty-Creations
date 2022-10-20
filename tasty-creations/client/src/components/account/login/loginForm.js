@@ -3,11 +3,13 @@ import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import "./loginForm.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginForm = ({ error }) => {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     function start() {
@@ -53,6 +55,7 @@ const LoginForm = ({ error }) => {
 
   const onSuccess = (e) => {
     alert("Signed in successfully!");
+    navigate(`/home`);
     console.log(e);
   };
 
@@ -62,55 +65,61 @@ const LoginForm = ({ error }) => {
   };
 
   return (
-    <form onSubmit={submitHandler} method="POST">
-      <div className="login">
-        <h1>Login</h1>
-        {error !== "" ? <div className="error">{error}</div> : ""}
-        <input
-          type="text"
-          placeholder="Enter username"
-          name="username"
-          id="username"
-          onChange={(e) => setUserName(e.target.value)}
-          // value={userName.username}
-        />
-        <input
-          type="password"
-          placeholder="Enter password"
-          name="password"
-          id="password"
-          onChange={(e) => setUserPassword(e.target.value)}
-          // value={details.password}
-        />
-        {/* <div className="login-button" onClick={popup}>
+    <div className="page">
+      <form onSubmit={submitHandler} method="POST">
+        <div className="login">
+          <h1>Login</h1>
+          {error !== "" ? <div className="error">{error}</div> : ""}
+          <input
+            className="loginInput"
+            type="text"
+            placeholder="Enter username"
+            name="username"
+            id="username"
+            onChange={(e) => setUserName(e.target.value)}
+            //value={userName.username}
+          />
+          <input
+            className="loginInput"
+            type="password"
+            placeholder="Enter password"
+            name="password"
+            id="password"
+            onChange={(e) => setUserPassword(e.target.value)}
+            // value={details.password}
+          />
+          {/* <div className="login-button" onClick={popup}>
           <input type="submit" value="LOGIN" />
         </div> */}
-        <input className="login-button" type="submit" value="LOGIN" />
-        <p className="text">Login Using</p>
-        <div className="alter-login">
-          <div className="google">
-            <GoogleLogin
-              classname="google-login"
-              clientId="408408598288-o22i4f2u60ggm1pf5aa9is1bctpi75ic.apps.googleusercontent.com"
-              buttonText=""
-              onSuccess={onSuccess}
-              onFailure={onFailure}
-              cookiePolicy={"single_host_origin"}
-              isSignedIn={false} //we can change the value here to "true", which will keep the sign in status
-              icon={false}
-              theme="dark"
-            />
+          <input className="login-button" type="submit" value="LOGIN" />
+          <p className="text">Login Using</p>
+          <div className="alter-login">
+            <div className="alter-login">
+              <GoogleLogin
+                id="googleLogin"
+                // classname="google-login"
+                className="alter-login"
+                clientId="408408598288-o22i4f2u60ggm1pf5aa9is1bctpi75ic.apps.googleusercontent.com"
+                buttonText=""
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_origin"}
+                isSignedIn={false} //we can change the value here to "true", which will keep the sign in status
+                icon={true}
+                theme="dark"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <a href="/register">Don't have an account?</a>
-        </div>
-        {/* <div className={popupStyle}>
+          <div>
+            <a href="/register">Don't have an account?</a>
+          </div>
+          {/* <div className={popupStyle}>
           <h3>Login Failed</h3>
           <p className="message">Username or password is incorrect.</p>
         </div> */}
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 };
 
