@@ -7,8 +7,7 @@ const UserSchema = new mongoose.Schema ({
     },
     email : {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     gender : {
         type: String,
@@ -17,13 +16,9 @@ const UserSchema = new mongoose.Schema ({
     password : {
         type: String,
         required: true
-    },
-    isConfirm: {
-        type: Boolean,
-        required: true,
-      },
+    }
 });
 
 const User = mongoose.model("user", UserSchema);
 
-module.exports = User;
+module.exports = User

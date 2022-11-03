@@ -32,10 +32,3 @@ input[type="submit"]{
     margin-top:5px;
     color:white;
 }
-input[type="submit"]:hover, button:hover{
-    cursor: pointer;
-}
-.profilebuttonsdiv{
-    display: flex;
-    gap :10px;
-}

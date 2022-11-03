@@ -1,45 +1,28 @@
 import axios from 'axios'
-import { useState, useEffect, useRef } from 'react';
-import { Link ,useNavigate} from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import "./detailsStyle.css";
 
 
 function Details() {
-  const navigate= useNavigate();
-  const [user, setUser] = useState({}) 
-  const [pic, setpic] = useState('') 
+  const [user, setUser] = useState([]) 
 
-  const userid= localStorage.getItem('userid');
   useEffect (()=>{
-    axios.get("http://localhost:3001/user/" + userid)
+    axios.get("http://localhost:3001/account")
     .then(res=>{
-      console.log(res.data);
-      setUser(res.data)
+      console.log(res.data.users[0]._id);
+      localStorage.setItem('user_id', res.data.users[0]._id)
+      setUser(res.data.users)
     }).catch(err=>{
       console.log(err);
     })
   },[] );
 
-  useEffect (()=>{
-    axios.get("http://localhost:3001/profile/"+userid)
-    .then(res=>{
-      let userProfile= res.data.preSignedUrls[res.data.preSignedUrls.length-1];
-      console.log(userProfile)
-      setpic(userProfile);
-    })
-  },[])
-  
-  const onLogout = (e) => {
-    localStorage.clear();
-    navigate('/login');
-    alert("Logout successfully!");
-    console.log(e);
-  };
   return (
     <>
       <div className="overall">
         <div className="logout">
-            <button type="button" onClick={onLogout}>Logout</button>
+            <button type="button">Logout</button>
         </div>
         <div className='details-container'>
           <div> 
@@ -59,7 +42,9 @@ function Details() {
               <h4>Full name</h4>
               <ul>
                 {
-                  user.fullName
+                  user.map(u=>(
+                    <li key={u._id}>{u.FullName}</li>
+                  ))
                 } 
               </ul>
             </div>
@@ -67,7 +52,9 @@ function Details() {
               <h4>E-mail Address</h4>
               <ul>
                 {
-                 user.email
+                  user.map(u=>(
+                    <li key={u._id}>{u.Email}</li>
+                  ))
                 } 
               </ul>
             </div>
@@ -75,16 +62,18 @@ function Details() {
               <h4>Gender</h4>
               <ul>
                 {
-                  user.gender
+                  user.map(u=>(
+                    <li key={u._id}>{u.Gender}</li>
+                  ))
                 } 
               </ul>
             </div>
             <div>
-              <Link to="/account/edit" id='ChangeInfobtn'>Change information</Link>
+              <Link to="/account/edit">Change information</Link>
             </div>
           </div>
           <div>
-          <img src={pic} alt="user profile" />
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png" alt="user profile" />
           </div>
         </div>
       </div>

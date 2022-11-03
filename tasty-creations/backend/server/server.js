@@ -7,28 +7,17 @@ const { body, validationResult } = require("express-validator");
 const bodyParser = require("body-parser");
 
 const mongoose = require ('mongoose');
-//const multer  = require('multer')
-//const upload = multer({
-  //  storage: multer.diskStorage({
-    //    destination: (req, file, cb) => cb(null, path.resolve('uploads')),
-      //  filename: (req, file, cb) => cb(null, file.originalname)
-    //})
-//})
+const multer  = require('multer')
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => cb(null, path.resolve('uploads')),
+        filename: (req, file, cb) => cb(null, file.originalname)
+    })
+})
 const cors = require ('cors');
 
 const UserModel = require ('../models/User');
 const ProfileModel = require ('../models/Profile')
-
-//for profile picture need to implement later 
-const {memoryStorage} = require ("multer");
-const getUserPresignedUrls = require ('../imageUrls.js');
-const uploadToS3 = require ('../s3.js');
-const storage = memoryStorage();
-const upload = multer({
-  storage
-});
-
-
 
 const HTTP_PORT = process.env.PORT || 3001;
 
@@ -37,7 +26,7 @@ app.use(bodyParser.json());
 
 //cors and for loading files uploaded in the server
 app.use(cors())
-//app.use('/uploads', express.static(path.resolve('uploads')))
+app.use('/uploads', express.static(path.resolve('uploads')))
 
 // bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,57 +62,47 @@ app.post("/register", (req, res) => {});
 app.post("/logout", (req, res) => {});
 
 //account and profile edit
-app.get("/account", (req, res) => {
-  UserModel.find().then(function (doc) {
-    res.send({ users: doc });
-  });
-});
+app.get ("/account", (req, res)=>{
+  UserModel.find()
+      .then(function(doc){
+          res.send({users: doc})
+          
+      })
+})
 
-app.put("/account/edit/:id", async (req, res, next) => {
+
+app.put ("/account/edit/:id", async (req, res, next)=>{
   try {
-    const id = req.params.id;
-    UserModel.findById(id, function (err, doc) {
-      if (err) return res.send("no entry found");
-      doc.fullName = req.body.fullName;
-      doc.email = req.body.email;
-      doc.gender = req.body.gender;
-      doc.password = req.body.password;
-      doc.save();
-      res.send(doc);
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-app.put(
-  "/account/editprofile/:id",
-  upload.single("file"),
-  async (req, res) => {
-
       const id = req.params.id;
-      const { file } = req;
-      if(!file){
-        return res.send('No image selected');
-      }
-      const {error, key} = uploadToS3 ({file, id});
-      if (error){
-        return res.status(400).json({message: error.message});
-      }else{
-       return res.status(200).json({key});
-      }
+      UserModel.findById(id, function(err, doc){
+          if (err) return res.send('no entry found');
+          doc.fullName = req.body.fullName; 
+          doc.email = req.body.email; 
+          doc.gender = req.body.gender; 
+          doc.password = req.body.password;
+          doc.save();
+          res.send(doc)
+      });
 
-    }
-);
+  } catch (error) { next(error); }
+})
 
-app.get("/profile/:id", async (req, res) => {
-  const id = req.params.id;
-  const {error, preSignedUrls}=await getUserPresignedUrls(id);
-  if (error){
-    return res.status(400).json({message: error.message});
-  }else{
-    return res.status(200).json({preSignedUrls})
-  }
+app.put ("/account/editprofile/:id", upload.single('file'), async(req, res, next)=>{
+  try {
+      const { path: profile } = req.file;
+      const userId = mongoose.Types.ObjectId(req.params.id);
+      const doc = await ProfileModel.findOneAndUpdate({
+          userId
+      }, {
+          pic: profile,
+          userId
+      }, {
+          upsert: true,
+          returnDocument: 'after'
+      });
+      res.status(doc ? 200 : 201).send(doc);
+
+  } catch (error) { next(error); }
 });
 
 app.use((req, res) => {
