@@ -35,9 +35,9 @@ const LoginForm = ({ error }) => {
     e.preventDefault();
     axios
       .post(
-        "/login",
+        "http://localhost:3001/login",
         {
-          username: userName,
+          email: userName,
           password: userPassword,
         },
         {
@@ -48,13 +48,11 @@ const LoginForm = ({ error }) => {
       )
       .then(function (response) {
         console.log("Res: ", response.data);
+        onSuccess();
       })
       .catch(function (error) {
-        console.log(error.response.data.errors);
-        setErr(() => error.response.data.errors);
-        setTimeout(() => {
-          setErr(() => []);
-        }, 3000);
+        alert(error.response.data.message);
+        console.log(error);
       });
   };
 
@@ -86,7 +84,7 @@ const LoginForm = ({ error }) => {
             className="loginInput"
             type="email"
             required
-            placeholder="Enter username"
+            placeholder="Enter your email"
             name="username"
             id="username"
             onChange={(e) => setUserName(e.target.value)}
