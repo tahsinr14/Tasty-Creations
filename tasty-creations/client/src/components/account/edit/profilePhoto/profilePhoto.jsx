@@ -1,12 +1,23 @@
 import "./profilePhoto.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 
 const UserProfilePhoto = () => {
+  const userid= localStorage.getItem('userid');
+
   const navigate = useNavigate();
-  const avatar =
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+  let avatar ="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+
+  useEffect (()=>{
+    axios.get("http://localhost:3001/profile/"+userid)
+    .then(res=>{
+      avatar = (res.data)
+    }).catch(err=>{
+      console.log(err);
+    })
+  }, []);
+
   const [profile, setProfile] = useState({
     imageUrl: avatar,
   });
@@ -22,12 +33,11 @@ const UserProfilePhoto = () => {
     });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = localStorage.getItem("user_id");
     let formData = new FormData();
     formData.append("file", profile.file);
     try {
       await axios.put(
-        `${process.env.REACT_APP_API_HOST}/account/editprofile/${userId}`,
+        `${process.env.REACT_APP_API_HOST}/account/editprofile/${userid}`,
         formData,
         {
           headers: {
@@ -48,7 +58,10 @@ const UserProfilePhoto = () => {
         <br />
         <input onChange={handleInput} type="file" id="image_input" />
         <br />
+        <div className="profilebuttonsdiv">
         <input type="submit" value="Submit" />
+        <button type="reset">Cancel</button>
+        </div>
         <br />
       </form>
     </>
