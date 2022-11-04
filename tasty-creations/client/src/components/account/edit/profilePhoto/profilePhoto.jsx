@@ -1,6 +1,7 @@
 import "./profilePhoto.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 import { useState, useEffect} from "react";
 
 const UserProfilePhoto = () => {
@@ -18,6 +19,7 @@ const UserProfilePhoto = () => {
     })
   }, []);
 
+
   const [profile, setProfile] = useState({
     imageUrl: avatar,
   });
@@ -33,11 +35,15 @@ const UserProfilePhoto = () => {
     });
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
     let formData = new FormData();
     formData.append("file", profile.file);
     try {
       await axios.put(
+
         `${process.env.REACT_APP_API_HOST}/account/editprofile/${userid}`,
+
         formData,
         {
           headers: {
@@ -58,10 +64,12 @@ const UserProfilePhoto = () => {
         <br />
         <input onChange={handleInput} type="file" id="image_input" />
         <br />
+
         <div className="profilebuttonsdiv">
         <input type="submit" value="Submit" />
         <button type="reset">Cancel</button>
         </div>
+
         <br />
       </form>
     </>

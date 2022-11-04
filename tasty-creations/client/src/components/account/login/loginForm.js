@@ -39,9 +39,11 @@ const LoginForm = ({ error }) => {
           },
         }
       )
+
       .then((response) =>{
         console.log("Res: ", response.data.user._id);
         localStorage.setItem('userid', response.data.user._id);
+
         onSuccess();
       })
       .catch(function (error) {
