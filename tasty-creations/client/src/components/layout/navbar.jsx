@@ -22,8 +22,21 @@ const navBar = () => {
           </li>
         </ul>
       </div>
-    </header>
-  );
+
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li>External Source</li>
+        <li>About</li>
+        <li>Contact Us</li>
+        <li>
+          <a href="/account">My Account</a>
+        </li>
+        <li><a href="/login">Log In</a></li>
+      </ul>
+    </div>
+  </header>
+  )
+
 };
 
 export default navBar;

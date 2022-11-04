@@ -33,6 +33,19 @@ const cors = require("cors");
 const UserModel = require("../models/User");
 const ProfileModel = require("../models/Profile");
 
+const mongoose = require ('mongoose');
+const multer  = require('multer')
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => cb(null, path.resolve('uploads')),
+        filename: (req, file, cb) => cb(null, file.originalname)
+    })
+})
+const cors = require ('cors');
+
+const UserModel = require ('../models/User');
+const ProfileModel = require ('../models/Profile')
+
 const HTTP_PORT = process.env.PORT || 3001;
 
 // create OAuth2Client, Client ID and Client Secret
@@ -59,8 +72,10 @@ app.use(
 app.use(bodyParser.json());
 
 //cors and for loading files uploaded in the server
+
 app.use(cors());
 app.use("/uploads", express.static(path.resolve("uploads")));
+
 
 // bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -214,67 +229,64 @@ app.get("/confirm/:id", async (req, res) => {
 
 app.post("/logout", (req, res) => {});
 
-app.get("/list-user", (req, res) => {
-  // get all users
-  UserModel.find().then((users) => {
-    res.json(users);
-  });
-});
 
 //account and profile edit
-app.get("/account", (req, res) => {
-  UserModel.find().then(function (doc) {
-    res.send({ users: doc });
-  });
-});
+app.get ("/account", (req, res)=>{
+  UserModel.find()
+      .then(function(doc){
+          res.send({users: doc})
+          
+      })
+})
 
-app.put("/account/edit/:id", async (req, res, next) => {
+
+app.put ("/account/edit/:id", async (req, res, next)=>{
   try {
-    const id = req.params.id;
-    UserModel.findById(id, function (err, doc) {
-      if (err) return res.send("no entry found");
-      doc.fullName = req.body.fullName;
-      doc.email = req.body.email;
-      doc.gender = req.body.gender;
-      doc.password = req.body.password;
-      doc.save();
-      res.send(doc);
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+      const id = req.params.id;
+      UserModel.findById(id, function(err, doc){
+          if (err) return res.send('no entry found');
+          doc.fullName = req.body.fullName; 
+          doc.email = req.body.email; 
+          doc.gender = req.body.gender; 
+          doc.password = req.body.password;
+          doc.save();
+          res.send(doc)
+      });
 
-app.put(
-  "/account/editprofile/:id",
-  upload.single("file"),
-  async (req, res, next) => {
-    try {
+  } catch (error) { next(error); }
+})
+
+app.put ("/account/editprofile/:id", upload.single('file'), async(req, res, next)=>{
+  try {
       const { path: profile } = req.file;
       const userId = mongoose.Types.ObjectId(req.params.id);
-      const doc = await ProfileModel.findOneAndUpdate(
-        {
-          userId,
-        },
-        {
+      const doc = await ProfileModel.findOneAndUpdate({
+          userId
+      }, {
           pic: profile,
-          userId,
-        },
-        {
+          userId
+      }, {
           upsert: true,
-          returnDocument: "after",
-        }
-      );
+          returnDocument: 'after'
+      });
       res.status(doc ? 200 : 201).send(doc);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+
+  } catch (error) { next(error); }
+});
+
+//app.get("/list-user", (req, res) => {
+  // get all users
+  //UserModel.find().then((users) => {
+    //res.json(users);
+  //});
+//});
+
+
 
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
+
 
 try {
   mongoose.connect(process.env.MONGO_URL, {
@@ -284,5 +296,6 @@ try {
 } catch (error) {
   console.log("Could not connect to MongoDB");
 }
+
 
 app.listen(HTTP_PORT, onHttpStart);

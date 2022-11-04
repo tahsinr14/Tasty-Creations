@@ -25,7 +25,16 @@
   align-items: center;
   justify-content: space-around;
 }
-
+.registrationForm{
+  background-color: white;
+  width: 40em;
+  /* height: 40em; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
 .alter-register {
   width: 40%;
   height: 3em;
@@ -50,7 +59,7 @@
   transform: scale(1.2);
 }
 
-input {
+.registerInput {
   border: none;
   background-color: rgb(229, 226, 226);
   height: 3.5em;
@@ -58,6 +67,9 @@ input {
   border-radius: 0.25em;
   text-align: center;
   padding: 1.5em;
+
+  margin-bottom: 10px;
+
 }
 
 input:focus {
