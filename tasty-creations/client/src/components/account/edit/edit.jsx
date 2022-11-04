@@ -34,11 +34,13 @@ const AccountEdit = () => {
     if (fields.password !== fields.confirmPassword)
       return alert("Password mismatch");
 
+
     await axios.put(
       `${process.env.REACT_APP_API_HOST}/account/edit/${userid}`,
       fields
     );
     alert("Updated successfully!");
+
     navigate(`/account`);
   };
   const handleFormReset = () =>
@@ -51,6 +53,7 @@ const AccountEdit = () => {
   return (
     <>
       <div className="page">
+
       <div className="formContainer">
         <h1
           id="page-title"
@@ -128,6 +131,7 @@ const AccountEdit = () => {
       </div>
       <div className="profileImg">
         <UserProfilePhoto />
+
       </div>
       </div>
     </>

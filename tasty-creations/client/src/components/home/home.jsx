@@ -5,7 +5,9 @@ import ItemComponent from "../ItemComponent";
 
 function Home() {
   const [foods, setFoods] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     axios
       .get("https://www.themealdb.com/api/json/v1/1/search.php?f=b")
@@ -22,11 +24,14 @@ function Home() {
     <>
       <div className="overall">
         <div className="search-container">
+
           <input type="text" id="search" placeholder="Search" onChange={event => setSearchTerm(event.target.value)}/>
+
         </div>
 
         <div className="food-container">
           <div>
+
             {foods.filter(val=>{
               if(searchTerm === ""){
                 return val;
@@ -43,6 +48,7 @@ function Home() {
                 />
               </a>
             ))}
+
           </div>
         </div>
       </div>

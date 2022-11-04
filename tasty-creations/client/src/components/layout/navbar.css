@@ -3,6 +3,7 @@
 }
 
 .App-header {
+
     padding: 10px 0px;
     margin-top: 0px;
     width: 100vw;
@@ -28,6 +29,7 @@ ul {
     list-style: none;
     padding:10px 50px;
     /* border: white solid 1px; */
+
 }
 
 .navbar a {
