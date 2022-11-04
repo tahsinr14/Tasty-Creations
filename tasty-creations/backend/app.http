@@ -1,0 +1,28 @@
+POST http://localhost:3001/register
+Content-Type: application/json
+
+{
+    "fullName":"user1",
+    "email":"user1@gmail.com",
+    "gender":"Male",
+    "password":"12345678"
+}
+
+###
+GET http://localhost:3001/account
+
+###
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "email":"cong.pttc@gmail.com",
+    "password":"12345678"
+}
+
+###
+GET http://localhost:3001/user/635284947d733fa8d444ead3
+
+###
+GET http://localhost:3001/profile/635284947d733fa8d444ead3
+
