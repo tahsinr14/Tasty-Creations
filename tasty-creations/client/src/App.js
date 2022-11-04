@@ -10,24 +10,22 @@ import Navbar from "./components/layout/navbar";
 
 function App() {
   return (
-    <div className="page">
+    <div>
       <div className="App">
       <Navbar />
-      <div className="overall">
-        <div className="body-container"></div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginForm />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/home" element={<Home/>}></Route>
-              <Route path="/view/:id" element={<ViewOne/>}></Route>
-          <Route path="/account" element={<AccountDetails />}></Route>
-          <Route path="/account/edit" element={<AccountEdit />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-    </div>
+
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/home" element={<Home/>}></Route>
+            <Route path="/view/:id" element={<ViewOne/>}></Route>
+            <Route path="/account" element={<AccountDetails />}></Route>
+            <Route path="/account/edit" element={<AccountEdit />}></Route>
+          </Routes>
+        </BrowserRouter>
+        </div>
     </div>
 
   );

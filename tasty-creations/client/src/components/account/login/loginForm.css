@@ -16,7 +16,7 @@
 .login {
   background-color: white;
   width: 40em;
-  height: 40em;
+  height: 35em;
   position: relative;
   border-radius: 1em;
   box-shadow: 0 0.188em 1.55em rgb(156, 156, 156);
@@ -53,14 +53,14 @@
   transform: scale(1.2);
 }
 
-input {
+.loginInput {
   border: none;
   background-color: rgb(229, 226, 226);
-  height: 4em;
+  height: 3.5em;
   width: 80%;
   border-radius: 0.25em;
   text-align: center;
-  padding: 2em;
+  padding: 1.5em;
 }
 
 input:focus {
@@ -92,6 +92,10 @@ input:focus {
 .hide {
   position: absolute;
   transform: scale(0); /* prevent popup from showing */
+}
+
+.message {
+  text-align: center;
 }
 
 .login-popup {
