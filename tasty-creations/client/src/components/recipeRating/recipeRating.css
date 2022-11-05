@@ -1,0 +1,12 @@
+button {
+   margin-top: 4px;
+   background-color: transparent;
+   color: red;
+   font-size: medium;
+}
+
+button:hover {
+    margin-top: 4px;
+    color: lightcoral;
+    font-weight: bolder;
+}

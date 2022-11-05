@@ -22,6 +22,9 @@ const UserSchema = new mongoose.Schema ({
         type: Boolean,
         required: true,
     },
+    likes: {
+        type: [String] // store recipeId 
+    }
 
 });
 

@@ -34,6 +34,7 @@ const ADMIN_EMAIL_ADDRESS = "tastycreation.seneca@gmail.com";
 
 const UserModel = require("../models/User");
 const ProfileModel = require("../models/Profile");
+const RatingModel = require("../models/Rating");
 
 const HTTP_PORT = process.env.PORT || 3001;
 
@@ -230,6 +231,66 @@ app.get("/confirm/:id", async (req, res) => {
 });
 
 app.post("/logout", (req, res) => {});
+
+app.get("/rating/:id", async (req, res) => {
+  const id = req.params.id;
+
+  let result = await RatingModel.findOne({ recipeId: id});
+
+  if (!result){
+    return res.status(404).json({message: 'rating not found'});
+  } else {
+    return res.status(200).json(result);
+   
+  }
+});
+
+app.post("/rating", async (req, res) => {
+  try {
+    const fetchedUser = await UserModel.findById(req.body.userId);
+    if(fetchedUser){
+      if(!fetchedUser.likes.includes(req.body.recipeId)){
+        const newRating = await new RatingModel({
+          recipeId: req.body.recipeId,
+        });
+        await newRating.save();
+        fetchedUser.likes.push(recipeId);
+        await fetchedUser.save();
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({ errors: error.message });
+  }
+
+});
+
+app.put("/rating/edit/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    
+    if(!req.body.userId){
+      return res.status(401).json({message: "Unauthorized"});
+    }
+    const fetchedUser = await UserModel.findById(req.body.userId);
+    
+    if(fetchedUser){
+      if(!fetchedUser.likes.includes(id)){
+        updateRating = await RatingModel.findOne({recipeId: id});
+        updateRating.$inc('rating', 1);
+        await updateRating.save();
+        fetchedUser.likes.push(id);
+        await fetchedUser.save();
+        return res.send(updateRating);
+
+      } else {
+        return res.status(409).json({message:"Recipe already liked"});
+      }
+    }
+
+  } catch (error) {
+    next(error);
+  }
+})
 
 app.get("/list-user", (req, res) => {
   // get all users
