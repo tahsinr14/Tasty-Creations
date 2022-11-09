@@ -23,7 +23,18 @@ const LoginForm = ({ error }) => {
     gapi.load("client: auth2", start);
   });
 
-
+  const handleFogotPassword = () => {
+    const email = userName;
+    axios
+      .post("http://localhost:3001/reset-password", { email })
+      .then((res) => {
+        console.log(res);
+        alert("Please check your email to reset your password");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const submitHandler = (e) => {
     e.preventDefault();
     axios
@@ -40,9 +51,9 @@ const LoginForm = ({ error }) => {
         }
       )
 
-      .then((response) =>{
+      .then((response) => {
         console.log("Res: ", response.data.user._id);
-        localStorage.setItem('userid', response.data.user._id);
+        localStorage.setItem("userid", response.data.user._id);
 
         onSuccess();
       })
@@ -120,12 +131,9 @@ const LoginForm = ({ error }) => {
             </div>
           </div>
           <div>
-            <a href="/register">Don't have an account?</a>
+            <Link to="/register">Don't have an account?</Link>
           </div>
-          {/* <div className={popupStyle}>
-          <h3>Login Failed</h3>
-          <p className="message">Username or password is incorrect.</p>
-        </div> */}
+          <Link to="/forgotPassword"> Forgot Password?</Link>
         </div>
       </form>
     </div>
@@ -134,13 +142,11 @@ const LoginForm = ({ error }) => {
 
 export default LoginForm;
 
-
 // import React, { useState } from "react";
 // import GoogleLogin from "react-google-login";
 // import {useNavigate} from 'react-router-dom'
 // import  axios  from "axios";
 // import "./loginForm.css";
-
 
 // const LoginForm = ({ error }) => {
 //   const [fields, setFields] = useState({
@@ -159,23 +165,20 @@ export default LoginForm;
 //     ).then(res=>{
 //       if(res.data._id){
 //         localStorage.setItem('userid', res.data._id);
-//         alert("Logged in successfully!"); 
+//         alert("Logged in successfully!");
 //         navigate(`/home`);
 //       }
 //       else{
 //         alert('Incorrect credentials')
 //       }
 //     });
-   
-    
+
 //     }
 //     else{
 //       alert("All fields are required")
 //     }
 
 //   };
-
-
 
 //   const handleFieldChange = (event, field) =>
 //   setFields((fields) => ({
