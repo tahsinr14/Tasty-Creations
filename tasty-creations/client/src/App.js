@@ -5,7 +5,7 @@ import RegisterForm from "./components/registerForm";
 import AccountEdit from "./components/account/edit/edit";
 import AccountDetails from "./components/account/details/details";
 import ViewOne from "./components/singleFood/singleFood";
-
+import CreateRecipe from "./components/createRecipe/createRecipe";
 import Home from "./components/home/home";
 
 import Navbar from "./components/layout/navbar";
@@ -23,7 +23,7 @@ function App() {
             <Route path="/" element={<LoginForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
-
+            <Route path="/createrecipe" element={<CreateRecipe />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/view/:id" element={<ViewOne />}></Route>
 

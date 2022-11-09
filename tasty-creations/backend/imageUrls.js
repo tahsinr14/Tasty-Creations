@@ -6,7 +6,13 @@ const {
 const {getSignedUrl} =require ('@aws-sdk/s3-request-presigner');
 
 
-const S3 = new S3Client();
+const S3 = new S3Client({
+  region: 'us-east-1',
+  credentials:{
+    secretAccessKey:'NAzm2nRw72o3PRGVmMuYlbfyaCear+vQVzOZ5vVT',
+    accessKeyId:'AKIASM5D6WQQY2YOC5Z4'
+  }
+});
 const BUCKET = process.env.BUCKET;
 
 const getImageKeysByUser = async (id) => {

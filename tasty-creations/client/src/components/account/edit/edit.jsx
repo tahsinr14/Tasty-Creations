@@ -29,6 +29,9 @@ const AccountEdit = () => {
       ...fields,
       [field]: event.target.value,
     }));
+
+  const handleReset =()=>navigate("/account")
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (fields.password !== fields.confirmPassword)
@@ -123,7 +126,7 @@ const AccountEdit = () => {
               />
             </div>
             <div className="action-group">
-              <button type="reset">Cancel</button>
+              <button type="reset" onClick={handleReset}>Cancel</button>
               <button type="submit">Update</button>
             </div>
           </fieldset>

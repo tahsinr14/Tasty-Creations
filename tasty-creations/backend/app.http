@@ -1,12 +1,3 @@
-POST http://localhost:3001/register
-Content-Type: application/json
-
-{
-    "fullName":"user1",
-    "email":"user1@gmail.com",
-    "gender":"Male",
-    "password":"12345678"
-}
 
 ###
 GET http://localhost:3001/account
@@ -16,13 +7,28 @@ POST http://localhost:3001/login
 Content-Type: application/json
 
 {
-    "email":"cong.pttc@gmail.com",
-    "password":"12345678"
+    "email":"tahsinr98@gmail.com",
+    "password":"Tomti1998"
 }
 
 ###
-GET http://localhost:3001/user/635284947d733fa8d444ead3
+GET http://localhost:3001/user/6364580ed22165fde299fa8e
+###
+GET http://localhost:3001/profile/6364580ed22165fde299fa8e
 
 ###
-GET http://localhost:3001/profile/635284947d733fa8d444ead3
+POST http://localhost:3001/createrecipe/6364580ed22165fde299fa8e
+Content-Type: application/json
 
+{
+    "AuthorName": "Tahsin ",
+    "RecipeName": "Toast",
+    "category": "breakfast",
+    "instruction": "spread eggs on bread and fry",
+    "ingredientList": "eggs, bread, salt",
+    "Rating": "4",
+    "UserID": "6364580ed22165fde299fa8e"
+}
+
+###
+GET http://localhost:3001/userrecipes/6364580ed22165fde299fa8e

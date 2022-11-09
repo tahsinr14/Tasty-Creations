@@ -28,6 +28,7 @@ const RegisterForm = () => {
     alert("check your email to confirm your account");
     navigate(`/login`);
   };
+  
   const [popupStyle, showPopup] = useState("hide");
   const popup = () => {
     showPopup("register-popup");
