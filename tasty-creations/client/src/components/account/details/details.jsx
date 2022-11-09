@@ -42,7 +42,7 @@ function Details() {
     axios.get("http://localhost:3001/profile/" + userid).then((res) => {
       let userProfile =
         res.data.preSignedUrls[res.data.preSignedUrls.length - 1];
-      console.log("profile pic", res.data);
+      console.log("profile pic", res.data, userProfile);
       setpic(userProfile);
     });
   }, []);

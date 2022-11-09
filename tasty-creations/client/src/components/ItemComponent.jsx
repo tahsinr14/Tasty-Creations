@@ -1,7 +1,8 @@
 import React from "react";
+import RecipeRating from "./recipeRating/recipeRating";
 
 const ItemComponent = (props) => {
-    const {title, image, Description} = props
+    const {id, title, image, Description} = props
   return (
     <div>
       
@@ -9,7 +10,7 @@ const ItemComponent = (props) => {
           <div className="Name_Image">
             <li>Name: {title}</li>
             <img src={image} alt="Yummy food" />
-            Rating:...
+            <RecipeRating recipeId={id}/>
           </div>
           <div className="Description">
             Description:

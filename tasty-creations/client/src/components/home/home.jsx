@@ -42,6 +42,7 @@ function Home() {
               <a href={`/view/${f.idMeal}`}>
                 <ItemComponent
                   key={f.idMeal}
+                  id={f.idMeal}
                   image={f.strMealThumb}
                   Description={f.strInstructions}
                   title={f.strMeal}

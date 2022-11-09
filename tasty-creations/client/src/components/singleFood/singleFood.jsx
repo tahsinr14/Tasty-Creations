@@ -9,6 +9,7 @@ import './singleFood.css'
 function ViewOne(){
     const [food, setFood] = useState({})
     const foodid = useParams() 
+    const [rating, setRating] = useState(0);
 
     useEffect(() =>{
         axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodid.id}`)
@@ -17,6 +18,20 @@ function ViewOne(){
             setFood(response.data.meals[0])
         })
         .catch((error) => console.log(error))
+        axios
+        .get(`/rating/${foodid.id}`)
+        .then((response) => {
+            console.log(response)
+          setRating(response.data.rating);
+        })
+        .catch((e) => {
+          if (e.response.status === 404) {
+            axios.post('/rating', {
+              recipeId: foodid.id,
+              rating: rating,
+            });
+          }
+        });
     },[])
 
     useEffect(()=>{
@@ -61,7 +76,7 @@ function ViewOne(){
                             <td></td>
                         </tr>
                         <tr>
-                            <th>Rating:</th>
+                            <th>Likes: {rating}</th>
                             <td></td>
                         </tr>
                     </table>

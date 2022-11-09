@@ -36,15 +36,40 @@ const RegisterForm = () => {
   };
 
   const onSuccess = (e) => {
-    alert("check your email to confirm your account");
-    navigate(`/login`);
+    alert("Thank you for registering, please login to continue");
+    // call api to send email
+    axios
+      .post(
+        "http://localhost:3001/email/send",
+        {
+          email: fields.email,
+          subject: "Thank you for registering",
+          content: `Thank you for registering ${fields.fullName}! Please login to continue`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        console.log("Res: ", response.data);
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+        // setErr(() => error.response.data.errors);
+        setTimeout(() => {
+          // setErr(() => []);
+        }, 3000);
+      });
+    navigate(`/`);
     console.log(e);
   };
 
   const onFailure = (e) => {
-      alert("User account NOT created!");
-      console.log(e);
-  }
+    alert("User account NOT created!");
+    console.log(e);
+  };
 
   return (
     <div className="page">
@@ -81,7 +106,11 @@ const RegisterForm = () => {
             type="password"
             placeholder="Confirm password"
           />
-          <button type="submit" style={{ border: "none" }} className="register-button">
+          <button
+            type="submit"
+            style={{ border: "none" }}
+            className="register-button"
+          >
             {" "}
             Register
           </button>
@@ -113,7 +142,6 @@ const RegisterForm = () => {
       </div>
     </div>
   );
-
 };
 
 export default RegisterForm;

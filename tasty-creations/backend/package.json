@@ -7,7 +7,6 @@
     "@aws-sdk/s3-request-presigner": "^3.202.0",
     "@types/nodemailer": "^6.4.6",
     "body-parser": "^1.20.1",
-
     "concurrently": "^7.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -16,12 +15,12 @@
     "express-validator": "^6.14.2",
     "google-auth-library": "^8.6.0",
     "gridfs-stream": "^1.1.1",
+    "joi": "^17.7.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.6.5",
     "multer": "^1.4.5-lts.1",
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20"
-
   }
 }
