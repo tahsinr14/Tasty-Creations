@@ -49,7 +49,7 @@ function ViewOne(){
                     <div>
                         Instructions:
                         <div className="instructions">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio inventore laborum, cum, vel dolorem culpa quia tempore laboriosam assumenda obcaecati eum, dolorum autem eos voluptate libero odit alias! Laudantium, in?
+                            {food.strInstructions}
                         </div>
                     </div>
                 </div>
@@ -57,27 +57,21 @@ function ViewOne(){
                     <table border>
                         <tr>
                             <th>Author:</th>
-                            <td></td>
+                            <td>{food.strArea}</td>
                         </tr>
                         <tr>
-                            <th>Recipe:</th>
-                            <td></td>
+                            <th>Recipe: 
+                            </th>
+                            <td>{food.strIngredient1}, {food.strIngredient2}, {food.strIngredient3}, {food.strIngredient4},
+                            {food.strIngredient5}, {food.strIngredient6}, {food.strIngredient7}, {food.strIngredient8}</td>
                         </tr>
                         <tr>
                             <th>Category:</th>
-                            <td></td>
+                            <td>{food.strCategory}</td>
                         </tr>
                         <tr>
-                            <th>Keyword Text:</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>Last Update:</th>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>Likes: {rating}</th>
-                            <td></td>
+                            <th>Likes: </th>
+                            <td>{rating}</td>
                         </tr>
                     </table>
                      

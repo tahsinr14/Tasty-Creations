@@ -420,6 +420,12 @@ app.get("/userrecipes/:id", async (req, res) => {
   });
 });
 
+app.get("/allrecipes", (req, res) => {
+  RecipeModel.find().then(function (doc) {
+    res.send({ recipes: doc });
+  });
+});
+
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });

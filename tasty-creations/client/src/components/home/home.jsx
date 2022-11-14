@@ -2,8 +2,10 @@ import "./home.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ItemComponent from "../ItemComponent";
+import { useNavigate } from "react-router";
 
 function Home() {
+  const navigate=useNavigate();
   const [foods, setFoods] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +22,9 @@ function Home() {
       });
   }, []);
 
+  const navigateToRecipes=()=>{
+    navigate("/allrecipes")
+  }
   return (
     <>
       <div className="overall">
@@ -28,7 +33,9 @@ function Home() {
           <input type="text" id="search" placeholder="Search" onChange={event => setSearchTerm(event.target.value)}/>
 
         </div>
-
+        <div>
+          <button className="navigateToRecipes" onClick={navigateToRecipes}>View all user recipes</button>
+        </div>
         <div className="food-container">
           <div>
 

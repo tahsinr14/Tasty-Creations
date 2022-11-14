@@ -1,0 +1,63 @@
+.recipePage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 40em;
+    border-radius: 1em;
+    box-shadow: 0 0.188em 1.55em rgb(156, 156, 156);
+    position: relative;
+}
+
+.recipe{
+    display: flex;
+    justify-content: center;
+}
+
+.formatButtons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.formatButtons button[type=submit]{
+    background-color: rgb(0, 195, 255);
+    border-radius: 5px;
+    padding: 10px 70px;
+    margin: 10px;
+}
+
+.formatButtons button[type=reset]{
+    background-color: red;
+    border-radius: 5px;
+    padding: 10px 70px;
+    margin: 10px;
+}
+
+.createRecipeForm{
+    background-color: white;
+    width: 40em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+.createRecipeInput {
+    border: none;
+    background-color: rgb(229, 226, 226);
+    height: 3.5em;
+    width: 80%;
+    border-radius: 0.25em;
+    text-align: center;
+    padding: 1.5em;
+    margin-bottom: 10px;
+  }
+
+h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

@@ -46,3 +46,9 @@ a {
 a:hover {
   color: black;
 }
+
+.navigateToRecipes{
+    background-color: green;
+    margin-left:40px;
+    color:white
+}
