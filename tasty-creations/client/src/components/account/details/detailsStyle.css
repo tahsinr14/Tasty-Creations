@@ -44,3 +44,21 @@ button{
     background-color: green ;
     border-radius: 5px;
 }
+
+.RecipeContainer{
+    width:80vw;
+    box-shadow: 0 0em 1.1em rgb(156, 156, 156);
+    padding:20px 0px;
+    margin-bottom: 10px;
+}
+.recipePage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 60vm;
+    border-radius: 1em;
+    box-shadow: 0 0.188em 1.55em purple;
+    position: relative;
+}

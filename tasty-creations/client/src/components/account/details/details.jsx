@@ -9,6 +9,7 @@ function Details() {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [recipes, setRecipes] = useState([]);
+  const LoggedIn = localStorage.getItem('userid');
   const [pic, setpic] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
   );
@@ -86,16 +87,16 @@ function Details() {
               <ul>{user.gender}</ul>
             </div>
             <br />
-            <div>
+            <div>{LoggedIn &&
               <Link to="/account/edit" id="ChangeInfobtn">
                 Change information
-              </Link>
+              </Link>}
               <br />
               <br />
               <br />
-              <Link to="/createrecipe" id="createParcelbtn">
+              {LoggedIn && <Link to="/createrecipe" id="createParcelbtn">
                 Create Recipe
-              </Link>
+              </Link>}
             </div>
           </div>
           <div>
@@ -103,7 +104,7 @@ function Details() {
           </div>
         </div>
         <div className="details-container">
-          <div>
+          {LoggedIn && <div>
             <h1
               id="page-title"
               style={{
@@ -120,7 +121,7 @@ function Details() {
               .map((recipe) => {
                 if (recipe.length !==0){
                 return (
-                  <div key={recipe.RecipeName}>
+                  <div key={recipe.RecipeName} className="recipePage">
                     <div>
                       <ul>
                         <b>Author Name:</b>
@@ -167,7 +168,7 @@ function Details() {
                     );
                 }
               })}
-          </div>
+          </div>}
         </div>
       </div>
     </>

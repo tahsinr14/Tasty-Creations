@@ -15,6 +15,7 @@ const S3 = new S3Client({
 const BUCKET = process.env.BUCKET;
 
 const uploadToS3 = async ({ file, id }) => {
+  const i=0
   const key = `${id}/${uuid()}`;
   const command = new PutObjectCommand({
     Bucket: BUCKET,
