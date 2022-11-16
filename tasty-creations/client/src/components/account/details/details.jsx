@@ -9,7 +9,7 @@ function Details() {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [recipes, setRecipes] = useState([]);
-  const LoggedIn = localStorage.getItem('userid');
+  const LoggedIn = localStorage.getItem("userid");
   const [pic, setpic] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
   );
@@ -53,6 +53,7 @@ function Details() {
     navigate("/login");
     alert("Logout success!");
     console.log(e);
+    window.location.reload();
   };
 
   return (
@@ -87,16 +88,20 @@ function Details() {
               <ul>{user.gender}</ul>
             </div>
             <br />
-            <div>{LoggedIn &&
-              <Link to="/account/edit" id="ChangeInfobtn">
-                Change information
-              </Link>}
+            <div>
+              {LoggedIn && (
+                <Link to="/account/edit" id="ChangeInfobtn">
+                  Change information
+                </Link>
+              )}
               <br />
               <br />
               <br />
-              {LoggedIn && <Link to="/createrecipe" id="createParcelbtn">
-                Create Recipe
-              </Link>}
+              {LoggedIn && (
+                <Link to="/createrecipe" id="createParcelbtn">
+                  Create Recipe
+                </Link>
+              )}
             </div>
           </div>
           <div>
@@ -104,71 +109,69 @@ function Details() {
           </div>
         </div>
         <div className="details-container">
-          {LoggedIn && <div>
-            <h1
-              id="page-title"
-              style={{
-                textAlign: "center",
-                margin: "2rem 0 2rem",
-              }}
-            >
-              My Recipes
-            </h1>
-            {recipes
-              .filter((el) => {
-                return el;
-              })
-              .map((recipe) => {
-                if (recipe.length !==0){
-                return (
-                  <div key={recipe.RecipeName} className="recipePage">
-                    <div>
-                      <ul>
-                        <b>Author Name:</b>
-                        {recipe.AuthorName}
-                      </ul>
-                      <div>
-                        <ul>
-                          <b>Recipe Name:</b>
-                          {recipe.RecipeName}
-                        </ul>
+          {LoggedIn && (
+            <div>
+              <h1
+                id="page-title"
+                style={{
+                  textAlign: "center",
+                  margin: "2rem 0 2rem",
+                }}
+              >
+                My Recipes
+              </h1>
+              {recipes
+                .filter((el) => {
+                  return el;
+                })
+                .map((recipe) => {
+                  if (recipe.length !== 0) {
+                    return (
+                      <div key={recipe.RecipeName} className="recipePage">
+                        <div>
+                          <ul>
+                            <b>Author Name:</b>
+                            {recipe.AuthorName}
+                          </ul>
+                          <div>
+                            <ul>
+                              <b>Recipe Name:</b>
+                              {recipe.RecipeName}
+                            </ul>
+                          </div>
+                          <div>
+                            <ul>
+                              <b>Category: </b>
+                              {recipe.category}
+                            </ul>
+                          </div>
+                          <ul>
+                            <b>Instructions:</b>
+                            {recipe.instruction}
+                          </ul>
+                          <div>
+                            <ul>
+                              <b>Ingredient:</b>
+                              {recipe.ingredientList}
+                            </ul>
+                          </div>
+                          <div>
+                            <ul>
+                              <b>Rating: </b>
+                              {recipe.Rating}
+                            </ul>
+                          </div>
+                        </div>
+                        <hr />
+                        <br />
                       </div>
-                      <div>
-                        <ul>
-                          <b>Category: </b>
-                          {recipe.category}
-                        </ul>
-                      </div>
-                      <ul>
-                        <b>Instructions:</b>
-                        {recipe.instruction}
-                      </ul>
-                      <div>
-                        <ul>
-                          <b>Ingredient:</b>
-                          {recipe.ingredientList}
-                        </ul>
-                      </div>
-                      <div>
-                        <ul>
-                          <b>Rating: </b>
-                          {recipe.Rating}
-                        </ul>
-                      </div>
-                    </div>
-                    <hr />
-                    <br />
-                  </div>
-                );
-                }else{
-                  return (
-                    <div>
-                      You have not created any recipes yet
-                    </div>
                     );
-                }
-              })}
-          </div>}
+                  } else {
+                    return <div>You have not created any recipes yet</div>;
+                  }
+                })}
+            </div>
+          )}
         </div>
       </div>
     </>

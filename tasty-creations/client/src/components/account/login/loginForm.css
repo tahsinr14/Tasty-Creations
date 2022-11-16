@@ -131,3 +131,11 @@ input:focus {
   border-radius: 0.25em;
   text-align: center;
 }
+
+.login h1 {
+  color: black;
+}
+
+.login h2 {
+  color: black;
+}

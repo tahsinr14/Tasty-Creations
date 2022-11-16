@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const { body } = require("express-validator");
 const bodyParser = require("body-parser");
+const socket = require("socket.io");
 const Token = require("../models/Token");
 const nodemailer = require("nodemailer");
 const { OAuth2Client } = require("google-auth-library");
@@ -21,6 +22,8 @@ const storage = memoryStorage();
 const upload = multer({
   storage,
 });
+
+const messageRouter = require("../routes/messages");
 
 const session = require("express-session");
 
@@ -71,6 +74,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
 }
+
+// chat
+
+app.use("/messages", messageRouter);
 
 // setup a route on the 'root' of the url
 // IE: http://localhost:8080/
@@ -209,11 +216,9 @@ app.post("/reset-password/:_id/:token", async (req, res) => {
     user.password = req.body.password;
     await user.save();
     await token.delete();
-    res
-      .status(200)
-      .json({
-        message: "Password reset successfully, please login to continue",
-      });
+    res.status(200).json({
+      message: "Password reset successfully, please login to continue",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: error.message });
@@ -277,11 +282,9 @@ app.get("/confirm/:id", async (req, res) => {
     }
     user.isConfirm = true;
     await user.save();
-    res
-      .status(200)
-      .json({
-        message: "Email confirmed successfully, please login to continue",
-      });
+    res.status(200).json({
+      message: "Email confirmed successfully, please login to continue",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: error.message });
@@ -467,4 +470,26 @@ try {
   console.log("Could not connect to MongoDB");
 }
 
-app.listen(HTTP_PORT, onHttpStart);
+const server = app.listen(HTTP_PORT, onHttpStart);
+
+//socket.io
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3001",
+    Credentials: true,
+  },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  console.log("New client connected");
+  socket.on("add-user", (userID) => {
+    onlineUsers.set(userID, socket.id);
+  });
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("receive-msg", data.msg);
+    }
+  });
+});

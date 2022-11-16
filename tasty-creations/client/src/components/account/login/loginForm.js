@@ -67,6 +67,7 @@ const LoginForm = ({ error }) => {
     alert("Signed in successfully!");
     navigate(`/home`);
     console.log(e);
+    window.location.reload();
   };
 
   const onFailure = (e) => {
@@ -131,9 +132,9 @@ const LoginForm = ({ error }) => {
             </div>
           </div>
           <div>
-            <Link to="/register">Don't have an account?</Link>
+            <a href="/register">Don't have an account?</a>
           </div>
-          <Link to="/forgotPassword"> Forgot Password?</Link>
+          <a href="/forgotPassword"> Forgot Password?</a>
         </div>
       </form>
     </div>

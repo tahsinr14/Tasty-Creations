@@ -1,6 +1,35 @@
+import { useState } from "react";
 import "./navbar.css";
+import axios from "axios";
+import { useEffect } from "react";
 
-const navBar = () => {
+function checkUser() {
+  let id = localStorage.getItem("userid");
+  if (id !== null) {
+    return "";
+  }
+  return "hidden-css";
+}
+
+const NavBar = () => {
+  let id = localStorage.getItem("userid");
+  console.log(id);
+  const [name, setName] = useState("");
+  useEffect(() => {
+    axios.get(`http://localhost:3001/user/${id}`).then((res) => {
+      // console.log(res);
+      setName(res.data.fullName);
+
+      if (id !== null) {
+        document.getElementById("statusUser").style.display = "none";
+        document.getElementById("logout").style.display = "block";
+        document.getElementById("profile").style.display = "block";
+      }
+    });
+  }, []);
+
+  console.log(name);
+
   return (
     <header className="App-header">
       <div className="navbar">
@@ -13,38 +42,21 @@ const navBar = () => {
           </li>
           <li>External Source</li>
           <li>About</li>
-          <li>Contact Us</li>
           <li>
-            <a href="/account">My Account</a>
+            <a href="/chat">Chat</a>
+          </li>
+          <li className={checkUser()}>
+            <a href="/account">{name}</a>
           </li>
           <li>
-            <a href="/">Log In</a>
+            <a id="statusUser" href="/">
+              Log In
+            </a>
           </li>
         </ul>
       </div>
-  </header>
-  )
-
+    </header>
+  );
 };
 
-export default navBar;
-
-// export default navBar = () => (
-//   <header className="App-header">
-//     <div className="navbar">
-//       <div className="App-logo">
-//         Tasty Creations
-//       </div>
-//       <ul>
-//         <li>Home</li>
-//         <li>External Source</li>
-//         <li>About</li>
-//         <li>Contact Us</li>
-//         <li>
-//           <a href="/account">My Account</a>
-//         </li>
-//         <li>Log In</li>
-//       </ul>
-//     </div>
-//   </header>
-// );
+export default NavBar;
