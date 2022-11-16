@@ -28,10 +28,10 @@ const session = require("express-session");
 // const APP_PORT = 3000
 // const APP_HOST = 'localhost'
 const GOOGLE_MAILER_CLIENT_ID =
-  "670506890821-kk5v3fr1uag1cvq8eahsbbdg0mn30b4v.apps.googleusercontent.com";
-const GOOGLE_MAILER_CLIENT_SECRET = "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";
+  "137474500955-roj8em43jd42b37htdhufn80c8h44l98.apps.googleusercontent.com";
+const GOOGLE_MAILER_CLIENT_SECRET = "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";
 const GOOGLE_MAILER_REFRESH_TOKEN =
-  "1//04sacO8KA2nR6CgYIARAAGAQSNwF-L9Ir1ePcWxke1AHINDphiwLrBgFKQsrjVwFghnH0qFGPqbBjrFRoTlhm6-o0vBkEGXRkTsA";
+  "1//04kKuDVvKTudNCgYIARAAGAQSNwF-L9Ir4PeX2NTzJWW415r_utu42dia-NXq9Z9WRYgZcpV4vZH5uMouE8BbnYcpiUCMuJcmAxE";
 const ADMIN_EMAIL_ADDRESS = "tastycreation.seneca@gmail.com";
 
 const ProfileModel = require("../models/Profile");
@@ -77,7 +77,6 @@ function onHttpStart() {
 app.get("/", (req, res) => {
   res.send("<p>Server running... </p>");
 });
-
 async function sendMail(email, subject, message) {
   try {
     if (!email || !subject || !message)
@@ -102,10 +101,9 @@ async function sendMail(email, subject, message) {
       html: `<div>${message}</div>`,
     };
     await transport.sendMail(mailOptions);
-    res.status(200).json({ message: "Email sent successfully." });
+    return true;
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ errors: error.message });
+    return false;
   }
 }
 
@@ -181,6 +179,7 @@ app.post("/reset-password", async (req, res) => {
     const message = `Hi ${user.fullName}, <br> Please click on the link to reset your password.<br><a href=${link}>Click here to verify</a>`;
     const subject = "Reset Your Password ";
     const email = req.body.email;
+    console.log(link);
     const result = await sendMail(email, subject, message);
     if (result) {
       res.status(200).json({ message: "Email sent successfully." });
@@ -210,9 +209,11 @@ app.post("/reset-password/:_id/:token", async (req, res) => {
     user.password = req.body.password;
     await user.save();
     await token.delete();
-    res.status(200).json({
-      message: "Password reset successfully, please login to continue",
-    });
+    res
+      .status(200)
+      .json({
+        message: "Password reset successfully, please login to continue",
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ errors: error.message });
@@ -250,16 +251,43 @@ app.post("/register", async (req, res) => {
       email: req.body.email,
       gender: req.body.gender,
       password: req.body.password,
-
-      // isConfirm: false,
+      isConfirm: false,
     });
     const user = await newUser.save();
+
+    await sendMail(
+      req.body.email,
+      "Confirm your email",
+      "Please click on the link to confirm your email <br> <a href='http://localhost:3000/confirm/" +
+        user._id +
+        "'>Click here to verify</a>"
+    );
 
     return res.status(200).json({ message: "Register successfully" });
   } catch (error) {
     return res.status(500).json({ errors: error.message });
   }
 });
+
+app.get("/confirm/:id", async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ _id: req.params.id });
+    if (!user) {
+      return res.status(400).json({ errors: "User not found" });
+    }
+    user.isConfirm = true;
+    await user.save();
+    res
+      .status(200)
+      .json({
+        message: "Email confirmed successfully, please login to continue",
+      });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ errors: error.message });
+  }
+});
+
 app.delete("/delete/:id", async (req, res) => {
   try {
     const user = await UserModel.findByIdAndDelete(req.params.id);
@@ -407,7 +435,7 @@ app.post("/createrecipe/:id", async (req, res) => {
 
 app.get("/userrecipes/:id", async (req, res) => {
   const UserID = req.params.id;
-  RecipeModel.find({"UserID":UserID}, function (err, data) {
+  RecipeModel.find({ UserID: UserID }, function (err, data) {
     if (data) {
       return res.status(200).json({ data });
     }

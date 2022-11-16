@@ -8,7 +8,7 @@ export default function ForgotPassword() {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/reset-password", { email })
+      .post("http://localhost:3001/reset-password", { email: email })
       .then((res) => {
         console.log(res);
         alert("Please check your email to reset your password");
