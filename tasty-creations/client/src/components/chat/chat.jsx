@@ -17,6 +17,11 @@ function Chat() {
   const [message, setMessage] = useState([]);
   const [userName, setUserName] = useState([]);
 
+  const date = new Date();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/list-user")
@@ -140,7 +145,7 @@ function Chat() {
               return (
                 <ChatHistory
                   key={item._id}
-                  time="11:32"
+                  time={`${hour}:${minute}`}
                   name={item.fromSelf ? "me" : "to you"}
                   message={item.message}
                   chatType={item.fromSelf ? "0" : "1"}

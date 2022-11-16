@@ -1,41 +1,41 @@
-.photo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 25vh 0;
-    text-align: center;
-    width:30vw;
-    
+.photo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 25vh 0;
+  text-align: center;
+  width: 30vw;
 }
 
-img{
-    width:250px;
-    height:250px;
-    border-radius: 50%;
+img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
 }
 
-input[type="file"]{
-    margin-left: 20px;
-    padding:10px;
-    border: solid black 1px;
-    border-radius: 5px;
-    margin-top:5px;
+input[type="file"] {
+  margin-left: 2px;
+  padding: 10px;
+  border: solid black 1px;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
-input[type="submit"]{
-    margin-left: 20px;
-    background-color: #009ef7;
-    padding:10px;
-    border: none;
-    border-radius: 5px;
-    margin-top:5px;
-    color:white;
+input[type="submit"] {
+  margin-left: 20px;
+  background-color: #009ef7;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: white;
 }
-input[type="submit"]:hover, button:hover{
-    cursor: pointer;
+input[type="submit"]:hover,
+button:hover {
+  cursor: pointer;
 }
-.profilebuttonsdiv{
-    display: flex;
-    gap :10px;
+.profilebuttonsdiv {
+  display: flex;
+  gap: 10px;
 }

@@ -1,29 +1,28 @@
-
-.overall-container{
-    box-sizing: border-box;
-    padding: 50px 50px 0px 50px;
-    margin: 0;
-    display: flex;
-    gap:50px;
+.overall-container {
+  box-sizing: border-box;
+  padding: 50px 50px 0px 50px;
+  margin: 0;
+  display: flex;
+  gap: 50px;
 }
-.left{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap:20px;
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
-.instructions{
-    width:12vw;
-    background-color: grey;
-    padding: 5px 20px;
-    margin-top: 10px;
-    border-radius: 20px;
+.instructions {
+  width: 12vw;
+  background-color: grey;
+  padding: 5px 20px;
+  margin-top: 10px;
+  border-radius: 20px;
 }
-table{
-    background-color: grey;
-    padding:20px;
-    width:50vw;
-    height:50vh;
-    text-align: left;
-    border-radius: 20px;
+table {
+  background-color: grey;
+  padding: 20px;
+  width: 50vw;
+  height: 50vh;
+  text-align: left;
+  border-radius: 20px;
 }

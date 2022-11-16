@@ -1,51 +1,55 @@
 fieldset {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
 }
-.formContainer{
-    width:30vw;
-    
+.formContainer {
+  width: 30vw;
 }
 #update-account-form {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 .form-group {
-    width: 75%;
+  width: 75%;
 }
+
+.input-group {
+  color: black;
+}
+
 .input-group input {
-    outline: none;
-    background-color: #c1c3c5 !important;
-    border: 1px solid #f5f8fa;
-    display: block;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border-radius: 0.65rem;
-    margin: 0.4rem 0 0.75rem;
+  outline: none;
+  background-color: #c1c3c5 !important;
+  border: 1px solid #f5f8fa;
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.65rem;
+  margin: 0.4rem 0 0.75rem;
 }
 .input-group label {
-    font-weight: bold;
-    font-size: 0.75rem;
+  font-weight: bold;
+  font-size: 0.75rem;
 }
 .action-group {
-    margin: 3rem 0;
+  margin: 3rem 0;
 }
 .action-group button {
-    border: 0;
-    cursor: pointer;
-    padding: calc(0.775rem + 1px) calc(1.5rem + 1px);
+  border: 0;
+  cursor: pointer;
+  padding: calc(0.775rem + 1px) calc(1.5rem + 1px);
 }
 .action-group button[type="reset"] {
-    color: #d6d8e2;
-    background-color: #5E6278;
-    border-radius: 0.65rem;
-    margin-right: 0.75rem;
+  color: #d6d8e2;
+  background-color: #5e6278;
+  border-radius: 0.65rem;
+  margin-right: 0.75rem;
 }
-    .action-group button[type="submit"] {
-        color: #ffffff;
-        background-color: #009ef7;
-        border-radius: 0.65rem;
-    }
+.action-group button[type="submit"] {
+  color: #ffffff;
+  background-color: #009ef7;
+  border-radius: 0.65rem;
+}
