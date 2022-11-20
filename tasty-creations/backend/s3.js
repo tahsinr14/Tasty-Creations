@@ -1,6 +1,7 @@
 const {
   S3Client,
   PutObjectCommand,
+  DeleteObjectCommand,
 } = require ("@aws-sdk/client-s3");
 
 const { v4: uuid } = require("uuid");
@@ -15,18 +16,32 @@ const S3 = new S3Client({
 const BUCKET = process.env.BUCKET;
 
 const uploadToS3 = async ({ file, id }) => {
-  const i=0
-  const key = `${id}/${uuid()}`;
+  const key = `${id}/${1}`;
+  if (key){
+    try {
+      const data= await S3.send(new DeleteObjectCommand({
+        Bucket: BUCKET,
+        Key: key
+      }));
+      console.log("Object deleted successfully");
+      // return data
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  const key2 = `${id}/${1}`;
   const command = new PutObjectCommand({
     Bucket: BUCKET,
-    Key: key,
+    Key: key2,
     Body: file.buffer,
     ContentType: file.mimetype,
   });
 
   try {
     await S3.send(command);
-    return { key };
+    return { key2 };
   } catch (error) {
     return { error };
   }
