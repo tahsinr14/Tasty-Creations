@@ -1,8 +1,10 @@
 .overall-container {
+  background-color: lightgray;
   box-sizing: border-box;
   padding: 50px 50px 0px 50px;
   margin: 0;
   display: flex;
+  justify-content: center;
   gap: 50px;
 }
 .left {
@@ -12,7 +14,7 @@
   gap: 20px;
 }
 .instructions {
-  width: 12vw;
+  width: 18vw;
   background-color: grey;
   padding: 5px 20px;
   margin-top: 10px;
@@ -22,7 +24,8 @@ table {
   background-color: grey;
   padding: 20px;
   width: 50vw;
-  height: 50vh;
+  height: 60vh;
   text-align: left;
   border-radius: 20px;
+  font-size: 20px;
 }
