@@ -1,28 +1,42 @@
+.foodName{
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  color: black;
+  background-color: rgb(250, 227, 231);
+  padding-top: 20px;
+}
 .overall-container {
+  background-color: rgb(250, 227, 231);
   box-sizing: border-box;
   padding: 50px 50px 0px 50px;
   margin: 0;
   display: flex;
-  gap: 50px;
-}
-.left {
-  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
+  gap: 50px;
+  overflow-x: hidden;
+  color: black;
+}
+.top {
+  display: flex;
+  justify-content: center;
   align-items: center;
   gap: 20px;
 }
 .instructions {
-  width: 12vw;
-  background-color: grey;
+  width: 80vw;
+  background-color: lightpink;
   padding: 5px 20px;
   margin-top: 10px;
   border-radius: 20px;
 }
 table {
-  background-color: grey;
+  background-color: lightpink;
   padding: 20px;
   width: 50vw;
-  height: 50vh;
+  height: 30vh;
   text-align: left;
   border-radius: 20px;
 }

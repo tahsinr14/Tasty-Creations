@@ -1,0 +1,48 @@
+.aboutContainer{
+    padding-left: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:black;
+}
+
+.aboutCreators{
+    padding:10px;
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+}
+
+.div1{
+    width: 220px;
+    padding:20px;
+    border: skyblue solid 1px;
+}
+
+.profiles{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.singleProfile{
+    display: flex;
+    width: 40vw;
+    justify-content: center;
+    gap: 2vw;
+    padding: 20px;
+}
+
+#aboutImg{
+    width:180px;
+    height:150px;
+    border:none;
+}
+
+#Membername{
+    background-color: lightgray;
+    padding:10px;
+    display: flex;
+    justify-content: center;
+}
