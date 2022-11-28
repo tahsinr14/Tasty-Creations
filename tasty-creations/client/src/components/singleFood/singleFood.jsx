@@ -37,18 +37,15 @@ function ViewOne() {
   }, food);
   return (
     <>
+    <div className="foodName">
+      {food.strMeal}
+    </div>
       <div className="overall-container">
-        <div className="left">
+        <div className="top">
           <div className="image">
             <img src={food.strMealThumb} alt="" />
           </div>
-
-          <div>
-            <b style={{ color: "black" }}>Instructions:</b>
-            <div className="instructions">{food.strInstructions}</div>
-          </div>
-        </div>
-        <div className="description">
+          <div className="description">
           <table border>
             <tr>
               <th>Author:</th>
@@ -73,6 +70,11 @@ function ViewOne() {
             </tr>
           </table>
         </div>
+        </div>
+        <div>
+            <b style={{ color: "black" }}>Instructions:</b>
+            <div className="instructions">{food.strInstructions}</div>
+          </div>
       </div>
     </>
   );
