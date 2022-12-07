@@ -39,6 +39,7 @@ const ADMIN_EMAIL_ADDRESS = "tastycreation.seneca@gmail.com";
 
 const ProfileModel = require("../models/Profile");
 const RatingModel = require("../models/Rating");
+const ReviewModel = require("../models/Review");
 
 const HTTP_PORT = process.env.PORT || 3001;
 
@@ -361,6 +362,68 @@ app.put("/rating/edit/:id", async (req, res, next) => {
   }
 });
 
+// review routes
+app.get("/review/:id", async (req, res) => {
+  const id = req.params.id;
+
+  let result = await ReviewModel.findOne({ recipeId: id });
+
+  if (!result) {
+    return res.status(404).json({ message: "review not found" });
+  } else {
+    return res.status(200).json(result);
+  }
+});
+app.get("/review/:id/:userid", async (req, res) => {
+  const id = req.params.id;
+  const userId = req.params.userid;
+
+  let result = await ReviewModel.findOne({ recipeId: id });
+
+  if (!result) {
+    return res.status(404).json({ message: "review not found" });
+  } else {
+    let userReview = result.reviews.filter((review) => review.userId == userId);
+    if (userReview) {
+      return res.status(200).json(userReview);
+    } else {
+      return res.status(404).json({ message: "user review not found" });
+    }
+  }
+});
+app.post("/review", async (req, res) => {
+  try {
+    const newReview = await new ReviewModel({
+      recipeId: req.body.recipeId,
+    });
+    newReview.save();
+  } catch (error) {
+    return res.status(500).json({ errors: error.message });
+  }
+});
+app.put("/review/edit/:id", async (req, res) => {
+  const id = req.params.id;
+  if (!(req.body.review && req.body.userId)) {
+    res.status(400).json({ message: "missing review payload" });
+  }
+  const fetchedUser = await UserModel.findById(req.body.userId);
+
+  if (fetchedUser) {
+    if (!fetchedUser.reviews.includes(id)) {
+      fetchedReview = await ReviewModel.findOne({ recipeId: id });
+      fetchedReview.reviews.push({
+        userId: req.body.userId,
+        body: req.body.review,
+      });
+      await fetchedReview.save();
+      fetchedUser.reviews.push(id);
+      await fetchedUser.save();
+      return res.send(fetchedReview);
+    } else {
+      return res.status(409).json({ message: "Edit review not implemented" });
+    }
+  }
+});
 app.get("/list-user", (req, res) => {
   // get all users
   UserModel.find().then((users) => {

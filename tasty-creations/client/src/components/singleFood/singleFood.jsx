@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DisplayReviews from "../recipeReview/displayReviews";
+import DisplayUserReview from "../recipeReview/displayUserReview";
 import "./singleFood.css";
 
 function ViewOne() {
   const [food, setFood] = useState({});
   const foodid = useParams();
   const [rating, setRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
 
   useEffect(() => {
     axios
@@ -19,7 +22,6 @@ function ViewOne() {
     axios
       .get(`/rating/${foodid.id}`)
       .then((response) => {
-        console.log(response);
         setRating(response.data.rating);
       })
       .catch((e) => {
@@ -29,7 +31,12 @@ function ViewOne() {
             rating: rating,
           });
         }
-      });
+      })
+     axios
+      .get(`/review/${foodid.id}`)
+      .then((response) => {
+        setTotalReviews(response.data.reviews.length);
+      })
   }, []);
 
   useEffect(() => {
@@ -68,6 +75,10 @@ function ViewOne() {
               <th>Likes: </th>
               <td>{rating}</td>
             </tr>
+            <tr>
+              <th>Reviews: </th>
+              <td>{totalReviews}</td>
+            </tr>
           </table>
         </div>
         </div>
@@ -75,6 +86,8 @@ function ViewOne() {
             <b style={{ color: "black" }}>Instructions:</b>
             <div className="instructions">{food.strInstructions}</div>
           </div>
+          <DisplayUserReview recipeId={foodid.id}/>
+          <DisplayReviews recipeId={foodid.id} />
       </div>
     </>
   );

@@ -1,0 +1,11 @@
+p {
+   margin-top: 2px;
+   color: green;
+   font-size: medium;
+}
+
+p:hover {
+    margin-top: 2px;
+    color: lightgreen;
+    font-weight: bolder;
+}

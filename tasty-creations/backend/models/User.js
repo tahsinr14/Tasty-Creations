@@ -25,6 +25,9 @@ const UserSchema = new mongoose.Schema({
   likes: {
     type: [String], // store recipeId
   },
+  reviews: {
+    type: [String], // store recipeId
+  },
 });
 
 const User = mongoose.model("user", UserSchema);

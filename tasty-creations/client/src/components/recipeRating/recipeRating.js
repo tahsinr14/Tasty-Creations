@@ -19,7 +19,7 @@ const RecipeRating = (props) => {
         })
         .catch((e) => {
           if (e.response.status === 404) {
-            axios.post('/rating/', {
+            axios.post("/rating/", {
               userId: userId,
               recipeId: recipeId,
               rating: rating,
@@ -35,11 +35,12 @@ const RecipeRating = (props) => {
     e.preventDefault();
     if (isAuthenticated) {
       axios
-        .put(`/rating/edit/${recipeId}`, {userId: userId})
+        .put(`/rating/edit/${recipeId}`, { userId: userId })
         .then((response) => {
           setRating(response.data.rating);
-        }).catch((e) => {
-          if(e.response.status === 409){
+        })
+        .catch((e) => {
+          if (e.response.status === 409) {
             alert("You have already liked this recipe");
           }
         });
@@ -50,7 +51,7 @@ const RecipeRating = (props) => {
   return (
     <>
       <button type="submit" onClick={(e) => handleClick(e)}>
-        <FontAwesomeIcon icon={faPepperHot} /> {rating}
+        Likes: <FontAwesomeIcon icon={faPepperHot} /> {rating}
       </button>
     </>
   );
