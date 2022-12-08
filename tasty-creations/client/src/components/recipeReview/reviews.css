@@ -1,46 +1,57 @@
 .reviews {
-    width: 80vw;
-    background-color: lightpink;
-    padding: 5px 20px;
-    margin-top: 10px;
-    border-radius: 20px;
+  width: 80vw;
+  background-color: lightpink;
+  padding: 5px 20px;
+  margin-top: 10px;
+  border-radius: 20px;
 }
 
 .review-table {
-    padding: 5px;
-    width: 50vw;
-    height: auto;
-    text-align: left;
-    border-radius: 20px;
-    font-size: 15px;
+  padding: 5px;
+  width: 50vw;
+  height: auto;
+  text-align: left;
+  border-radius: 20px;
+  font-size: 15px;
 }
 hr.new-review {
-    color: 1px solid red;
-    border-radius: 20px;
+  color: 1px solid red;
+  border-radius: 20px;
 }
 
-.no-reviews{
-    color: black;
-    font-size: 15px;
+.no-reviews {
+  color: black;
+  font-size: 15px;
 }
 .add-review-btn {
-    background-color: black;
-    color: pink;
+  background-color: black;
+  color: pink;
 }
 .add-review-btn:hover {
-    background-color: gray;
-    color: pink;
-    font-weight: normal;
+  background-color: gray;
+  color: pink;
+  font-weight: normal;
 }
 textarea {
-    margin-top: 5px;
-    background-color: transparent;
-    color: black;
-    font-size: 15px;
-    border: none;
+  margin-top: 5px;
+  background-color: transparent;
+  color: black;
+  font-size: 15px;
+  border: none;
 }
 textarea::placeholder {
-    color: black;
-    font-style: italic;
-    font-size: 14px;
+  color: black;
+  font-style: italic;
+  font-size: 14px;
 }
+.edit-review-btn {
+  background-color: black;
+  color: pink;
+}
+
+.edit-review-btn:hover {
+  background-color: gray;
+  color: pink;
+  font-weight: normal;
+}
+

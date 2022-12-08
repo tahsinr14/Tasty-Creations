@@ -410,7 +410,7 @@ app.put("/review/edit/:id", async (req, res) => {
 
   if (fetchedUser) {
     if (!fetchedUser.reviews.includes(id)) {
-      fetchedReview = await ReviewModel.findOne({ recipeId: id });
+      let fetchedReview = await ReviewModel.findOne({ recipeId: id });
       fetchedReview.reviews.push({
         userId: req.body.userId,
         body: req.body.review,
@@ -419,8 +419,17 @@ app.put("/review/edit/:id", async (req, res) => {
       fetchedUser.reviews.push(id);
       await fetchedUser.save();
       return res.send(fetchedReview);
+    } else if (fetchedUser.reviews.includes(id)) {
+      let fetchedReview = await ReviewModel.findOne({ recipeId: id }).limit(1);
+      const fetchedIndex = fetchedReview.reviews.findIndex(
+        (review) => review.userId == req.body.userId
+      );
+      fetchedReview.reviews[fetchedIndex].body =
+        req.body.review.trim() + " (edited)";
+      await fetchedReview.save();
+      return res.send(fetchedReview);
     } else {
-      return res.status(409).json({ message: "Edit review not implemented" });
+      res.status(500).json({ message: "error publishing review changes" });
     }
   }
 });
