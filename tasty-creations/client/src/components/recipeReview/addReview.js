@@ -22,7 +22,7 @@ const AddReview = (props) => {
         alert("review cannot be empty");
       } else {
         axios
-          .put(`/review/edit/${recipeId}`, {
+          .put(`${process.env.REACT_APP_API_HOST}/review/edit/${recipeId}`, {
             userId: userId,
             review: review,
           })

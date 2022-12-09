@@ -4,6 +4,7 @@
   padding: 5px 20px;
   margin-top: 10px;
   border-radius: 20px;
+  padding-bottom: 10px;
 }
 
 .review-table {
@@ -47,6 +48,7 @@ textarea::placeholder {
 .edit-review-btn {
   background-color: black;
   color: pink;
+  margin-left: 10px;
 }
 
 .edit-review-btn:hover {
@@ -55,3 +57,13 @@ textarea::placeholder {
   font-weight: normal;
 }
 
+.delete-review-btn {
+  background-color: crimson;
+  color: white;
+}
+
+.delete-review-btn:hover {
+  background-color: red;
+  color: azure;
+  font-weight: normal;
+}

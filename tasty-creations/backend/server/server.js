@@ -427,10 +427,41 @@ app.put("/review/edit/:id", async (req, res) => {
       fetchedReview.reviews[fetchedIndex].body =
         req.body.review.trim() + " (edited)";
       await fetchedReview.save();
-      return res.send(fetchedReview);
+      return res.status(200).json({ message: "review successfully updated" });
     } else {
       res.status(500).json({ message: "error publishing review changes" });
     }
+  }
+});
+app.delete("/review/delete/:id/:userId", async (req, res) => {
+  const id = req.params.id;
+  const userId = req.params.userId;
+  try {
+    let fetchedUser = await UserModel.findById(req.params.userId);
+    let fetchedReview = await ReviewModel.findOne({ recipeId: id }).limit(1);
+
+    if (!(fetchedUser || fetchedReview)) {
+      return res.status(401).json({ message: "user/review not found" });
+    }
+    if (!fetchedUser.reviews.includes(id)) {
+      return res
+        .status(500)
+        .json({ message: "review not associated with the user" });
+    }
+    const updatedReviews = fetchedUser.reviews.filter(
+      (reviewId) => reviewId !== id
+    );
+    const fetchedIndex = fetchedReview.reviews.findIndex(
+      (review) => review.userId == userId
+    );
+    fetchedReview.reviews.splice(fetchedIndex, 1);
+    fetchedReview.save();
+
+    fetchedUser.reviews = updatedReviews;
+    fetchedUser.save();
+    res.status(200).json({ message: "review successfully deleted" });
+  } catch (err) {
+    res.status(500).json({ message: "unexpected error" });
   }
 });
 app.get("/list-user", (req, res) => {

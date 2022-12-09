@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faCancel } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 const EditReview = (props) => {
   const [recipeId, setRecipeId] = useState(props.recipeId);
@@ -20,12 +20,13 @@ const EditReview = (props) => {
     e.preventDefault();
     console.log(updatedReview);
     axios
-      .put(`/review/edit/${recipeId}`, {
+      .put(`${process.env.REACT_APP_API_HOST}/review/edit/${recipeId}`, {
         userId: userId,
         review: updatedReview,
       })
       .then((response) => {
-        window.location.reload();
+
+        if (response.status === 200) window.location.reload();
       });
   };
   return (

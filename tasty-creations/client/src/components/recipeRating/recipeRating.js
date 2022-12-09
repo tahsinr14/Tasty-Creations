@@ -13,13 +13,13 @@ const RecipeRating = (props) => {
   useEffect(() => {
     try {
       axios
-        .get(`/rating/${recipeId}`)
+        .get(`${process.env.REACT_APP_API_HOST}/rating/${recipeId}`)
         .then((response) => {
           setRating(response.data.rating);
         })
         .catch((e) => {
           if (e.response.status === 404) {
-            axios.post("/rating/", {
+            axios.post(`${process.env.REACT_APP_API_HOST}/rating/`, {
               userId: userId,
               recipeId: recipeId,
               rating: rating,
@@ -35,7 +35,9 @@ const RecipeRating = (props) => {
     e.preventDefault();
     if (isAuthenticated) {
       axios
-        .put(`/rating/edit/${recipeId}`, { userId: userId })
+        .put(`${process.env.REACT_APP_API_HOST}/rating/edit/${recipeId}`, {
+          userId: userId,
+        })
         .then((response) => {
           setRating(response.data.rating);
         })

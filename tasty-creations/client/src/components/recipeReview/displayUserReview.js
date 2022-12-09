@@ -8,6 +8,8 @@ import ReviewDetails from "./reviewDetails";
 import AddReview from "./addReview";
 import EditReview from "./editReview";
 
+import DeleteReview from "./deleteReview";
+
 const DisplayUserReview = (props) => {
   const [recipeId, setRecipeId] = useState(props.recipeId);
   const [reviews, setReviews] = useState({});
@@ -19,13 +21,13 @@ const DisplayUserReview = (props) => {
     setIsEditMode(false);
     try {
       axios
-        .get(`/review/${recipeId}/${userId}`)
+        .get(`${process.env.REACT_APP_API_HOST}/review/${recipeId}/${userId}`)
         .then((response) => {
           setReviews(response.data);
         })
         .catch((e) => {
           if (e.response.status === 404) {
-            axios.post("/review/", {
+            axios.post(`${process.env.REACT_APP_API_HOST}/review/`, {
               recipeId: recipeId,
             });
             hasReview(false);
@@ -49,8 +51,10 @@ const DisplayUserReview = (props) => {
             publishDate={reviews[0].publishDate}
             body={reviews[0].body}
           />
+          <DeleteReview recipeId={recipeId} />
           <button className="edit-review-btn" onClick={enableEditMode}>
-            <FontAwesomeIcon icon={faEdit} /> Edit Review
+            <FontAwesomeIcon icon={faEdit} /> Edit
+
           </button>
         </div>
       );

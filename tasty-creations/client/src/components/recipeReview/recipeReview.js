@@ -11,7 +11,7 @@ const RecipeReview = (props) => {
   useEffect(() => {
     try {
       axios
-        .get(`/review/${recipeId}`)
+        .get(`${process.env.REACT_APP_API_HOST}/review/${recipeId}`)
         .then((response) => {
           setReviewCount(response.data.reviews.length);
         })

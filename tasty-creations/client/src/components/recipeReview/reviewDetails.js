@@ -9,7 +9,7 @@ const ReviewDetails = (props) => {
 
   useEffect(() => {
     axios
-      .get(`/user/${userId}`)
+      .get(`${process.env.REACT_APP_API_HOST}/user/${userId}`)
       .then((response) => {
         setFullName(response.data.fullName);
       })

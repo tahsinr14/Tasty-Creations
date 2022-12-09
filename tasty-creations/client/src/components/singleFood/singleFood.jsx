@@ -20,20 +20,20 @@ function ViewOne() {
       })
       .catch((error) => console.log(error));
     axios
-      .get(`/rating/${foodid.id}`)
+      .get(`${process.env.REACT_APP_API_HOST}/rating/${foodid.id}`)
       .then((response) => {
         setRating(response.data.rating);
       })
       .catch((e) => {
         if (e.response.status === 404) {
-          axios.post("/rating", {
+          axios.post(`${process.env.REACT_APP_API_HOST}/rating`, {
             recipeId: foodid.id,
             rating: rating,
           });
         }
       })
      axios
-      .get(`/review/${foodid.id}`)
+      .get(`${process.env.REACT_APP_API_HOST}/review/${foodid.id}`)
       .then((response) => {
         setTotalReviews(response.data.reviews.length);
       })
