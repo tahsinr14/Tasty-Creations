@@ -31,10 +31,10 @@ const session = require("express-session");
 // const APP_PORT = 3000
 // const APP_HOST = 'localhost'
 const GOOGLE_MAILER_CLIENT_ID =
-  "137474500955-roj8em43jd42b37htdhufn80c8h44l98.apps.googleusercontent.com";
-const GOOGLE_MAILER_CLIENT_SECRET = "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";
+  "856217548206-lh7m4ph38knjre91e8b1dhfmcobmfquo.apps.googleusercontent.com";
+const GOOGLE_MAILER_CLIENT_SECRET = "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";
 const GOOGLE_MAILER_REFRESH_TOKEN =
-  "1//04kKuDVvKTudNCgYIARAAGAQSNwF-L9Ir4PeX2NTzJWW415r_utu42dia-NXq9Z9WRYgZcpV4vZH5uMouE8BbnYcpiUCMuJcmAxE";
+  "1//04payD7rABHHtCgYIARAAGAQSNwF-L9IrOdndjEDrXokGU1GtsYyLEDdJ-iYVvdKKsfbhZLV93ogDqPC5_ShXNe3-q_xW7RO14Ik";
 const ADMIN_EMAIL_ADDRESS = "tastycreation.seneca@gmail.com";
 
 const ProfileModel = require("../models/Profile");
